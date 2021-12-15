@@ -1,3 +1,4 @@
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using System.Diagnostics;
 
@@ -9,6 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging(builder => builder.AddSeq());
 builder.Services.AddOpenTelemetryTracing((builder) => builder
+    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Downstream"))
     .AddAspNetCoreInstrumentation()
     .AddHttpClientInstrumentation()
     .AddJaegerExporter()
